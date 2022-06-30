@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[41,)"
+license="CC BY-NC-ND 4.0"
+
+[[mods]]
+modId="${modId}"
+version="${version}"
+displayName="${displayName}"
+displayURL="https://anthonyhilyard.com/"
+updateJSONURL="https://mc-update-check.anthonyhilyard.com/638111"
+logoFile="icon.png"
+authors="Grend"
+description='''A library all about color! Provides lots of color-related functionality for dependent mods.'''
+
+[[modDependency]]
+	modId="forge"
+	mandatory=true
+	versionRange="[41,)"
+	ordering="NONE"
+	side="BOTH"
+
+[[modDependency]]
+	modId="minecraft"
+	mandatory=true
+	versionRange="[1.19,)"
+	ordering="NONE"
+	side="BOTH"
+

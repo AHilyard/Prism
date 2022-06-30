@@ -1,0 +1,76 @@
+buildscript {
+	repositories {
+		maven { url = "https://maven.minecraftforge.net" }
+		maven { url = "https://repo.spongepowered.org/maven" }
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
+		classpath group: "org.spongepowered", name: "mixingradle", version: "0.7-SNAPSHOT"
+	}
+}
+
+ext {
+	prop = new Properties()
+}
+
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.spongepowered.mixin"
+apply plugin: "eclipse"
+apply from: "evaluateprops.gradle"
+
+archivesBaseName = prop.name + "-" + prop.mcVersion
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+mixin {
+	add sourceSets.main, "${prop.modId})}.refmap.json"
+}
+
+minecraft {
+	mappings channel: "official", version: prop.mcVersion
+	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+	runs {
+		client {
+			properties "forge.logging.markers": ""
+			properties "forge.logging.console.level": "debug"
+			properties "terminal.ansi": "true"
+			workingDirectory project.file("run").canonicalPath
+			source sourceSets.main
+		}
+	}
+}
+
+dependencies {
+	minecraft "net.minecraftforge:forge:${prop.mcVersion}-${prop.forgeVersion}"
+	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+processResources {
+	inputs.property "modId", prop.modId
+	inputs.property "version", prop.version
+	inputs.property "displayName", prop.displayName
+
+	filesMatching("META-INF/mods.toml") {
+		expand (
+			modId: prop.modId,
+			version: prop.version,
+			displayName: prop.displayName
+		)
+
+		filter { String line -> line.replace("[[modDependency]]", "[[dependencies.${prop.modId}]]") }
+	}
+	outputs.upToDateWhen { false }
+}
+
+jar {
+	manifest {
+		attributes(["Specification-Title":		prop.name,
+					"Specification-Vendor":		prop.author,
+					"Specification-Version":	prop.version,
+					"Implementation-Title":		prop.name,
+					"Implementation-Version":	prop.version,
+					"Implementation-Vendor" :	prop.author,
+					"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+					"MixinConfigs": "${project.name.toLowerCase()}.mixins.json"])
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"required": false,
+	"package": "com.anthonyhilyard.prism.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"refmap": "prism.refmap.json",
+	"client": [
+		"TextColorMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	},
+	"minVersion": "0.8.5",
+	"target": "@env(DEFAULT)"
+}

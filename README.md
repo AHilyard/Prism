@@ -1,0 +1,1 @@
+A library for Minecraft that adds tons of new color-related functionality to dependent mods.
