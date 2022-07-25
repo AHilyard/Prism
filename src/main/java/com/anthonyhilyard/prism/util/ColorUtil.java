@@ -44,7 +44,7 @@ public class ColorUtil
 	{
 		// Ensure all arguments are in the valid range.
 		alpha = Mth.clamp(alpha, 0.0f, 1.0f);
-		hue = hue - (float)Mth.floor(hue);
+		hue =  Mth.clamp(hue, 0.0f, 1.0f);
 		saturation = Mth.clamp(saturation, 0.0f, 1.0f);
 		value = Mth.clamp(value, 0.0f, 1.0f);
 
@@ -56,10 +56,11 @@ public class ColorUtil
 		else
 		{
 			int h = (int)(hue * 6.0f);
+			float ff = (hue * 6.0f) - h;
 			float p = value * (1.0f - saturation);
-			float q = value * (1.0f - saturation * (float) h);
-			float t = value * (1.0f - (saturation * (1.0f - (float) h)));
-			switch ((int) h)
+			float q = value * (1.0f - saturation * ff);
+			float t = value * (1.0f - (saturation * (1.0f - ff)));
+			switch (h)
 			{
 				case 0:
 					r = round(value);
@@ -116,9 +117,9 @@ public class ColorUtil
 	public static float[] ARGBtoAHSV(int a, int r, int g, int b)
 	{
 		a = Mth.clamp(a, 0, 255);
-		r = Mth.clamp(a, 0, 255);
-		g = Mth.clamp(a, 0, 255);
-		b = Mth.clamp(a, 0, 255);
+		r = Mth.clamp(r, 0, 255);
+		g = Mth.clamp(g, 0, 255);
+		b = Mth.clamp(b, 0, 255);
 
 		float hue, saturation, value;
 		int cmax = NumberUtils.max(r, g, b);

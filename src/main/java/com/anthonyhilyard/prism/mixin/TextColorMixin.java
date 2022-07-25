@@ -14,15 +14,22 @@ import net.minecraft.network.chat.TextColor;
 @Mixin(TextColor.class)
 public class TextColorMixin implements IColor
 {
-	@Shadow(remap = false)
+	@Shadow
 	@Final
 	private String name;
+
+	@Shadow
+	@Final
+	private int value;
 
 	@Override
 	public String getName() { return name; }
 
-	@Shadow
-	public int getValue() { return 0; }
+	@Override
+	public int getValue() { return value; }
+
+	@Override
+	public boolean isAnimated() { return false; }
 
 	/**
 	 * Fix an issue in TextColor parsing that makes it so only alpha values up to 0x7F are supported.

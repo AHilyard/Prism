@@ -23,7 +23,7 @@ archivesBaseName = prop.name + "-" + prop.mcVersion
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 mixin {
-	add sourceSets.main, "${prop.modId})}.refmap.json"
+	add sourceSets.main, "${prop.modId}.refmap.json"
 }
 
 minecraft {

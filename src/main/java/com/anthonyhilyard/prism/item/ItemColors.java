@@ -1,6 +1,8 @@
 package com.anthonyhilyard.prism.item;
 
+import com.anthonyhilyard.prism.text.DynamicColor;
 import com.anthonyhilyard.prism.text.TextColors;
+import com.anthonyhilyard.prism.util.IColor;
 
 import java.util.List;
 
@@ -87,6 +89,6 @@ public class ItemColors
 			result = defaultColor;
 		}
 
-		return result;
+		return new DynamicColor((IColor)result);
 	}
 }

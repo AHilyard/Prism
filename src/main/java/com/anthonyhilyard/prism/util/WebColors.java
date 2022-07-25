@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import com.anthonyhilyard.prism.text.DynamicTextColor;
+import com.anthonyhilyard.prism.text.DynamicColor;
 import com.google.common.collect.Maps;
 
 public class WebColors
@@ -17,22 +17,25 @@ public class WebColors
 		Map<String, IColor> loadedColors = Maps.newHashMap();
 
 		// Load the HTML colors.
-		BufferedReader reader = new BufferedReader(new InputStreamReader(WebColors.class.getClassLoader().getResourceAsStream("webcolors.json")));
-		try
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(WebColors.class.getClassLoader().getResourceAsStream("webcolors.csv")));)
 		{
 			for (String line; (line = reader.readLine()) != null;)
 			{
 				String[] components = line.split(",");
 				if (components.length >= 2)
 				{
-
-					loadedColors.put(ConfigHelper.formatColorName(components[0]), new IColor()
+					final String name = components[0];
+					final int value = Integer.parseUnsignedInt(components[1], 16);
+					loadedColors.put(ConfigHelper.formatColorName(name), new IColor()
 					{
 						@Override
-						public String getName() { return components[0]; }
+						public String getName() { return name; }
 
 						@Override
-						public int getValue() { return Integer.getInteger(components[1]); }
+						public int getValue() { return value; }
+
+						@Override
+						public boolean isAnimated() { return false; }
 					});
 				}
 			}
@@ -48,7 +51,7 @@ public class WebColors
 		IColor result = null;
 		if (webColorMap.containsKey(colorName))
 		{
-			result = DynamicTextColor.fromColor(webColorMap.get(colorName));
+			result = DynamicColor.fromColor(webColorMap.get(colorName));
 		}
 		return result;
 	}
