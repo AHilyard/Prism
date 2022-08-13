@@ -28,7 +28,7 @@ public class ImageAnalysis
 		// First, load the resource and make sure it's a valid image.
 		Minecraft minecraft = Minecraft.getInstance();
 		ResourceManager resourceManager = minecraft.getResourceManager();
-		try (InputStream imageStream = resourceManager.open(imageLocation))
+		try (InputStream imageStream = resourceManager.getResource(imageLocation).getInputStream())
 		{
 			BufferedImage image = ImageIO.read(imageStream);
 			
