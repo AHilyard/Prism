@@ -8,11 +8,11 @@ tempProperties.each { key, val ->
 		try
 		{
 			tempVal = Eval.xy(rootProject, project, "${val}".replaceAll("rootProject.", "x.").replaceAll("project.", "y."))
-			println "${key} = ${tempVal}"
+			//println "${key} = ${tempVal}"
 		}
 		catch (Exception e) {
 			tempVal = val
-			println "an exception occurred: ${e}"
+			//println "an exception occurred: ${e}"
 		}
 		finally {
 			Eval.x(prop, "x.setProperty(\"${key}\", \"${tempVal}\")")

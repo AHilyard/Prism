@@ -1,17 +1,14 @@
 package com.anthonyhilyard.prism.text;
 
 import java.util.List;
-import java.util.function.Consumer;
 
+import com.anthonyhilyard.prism.events.RenderTickEvent;
 import com.anthonyhilyard.prism.util.ColorUtil;
 import com.anthonyhilyard.prism.util.IColor;
 import com.google.common.collect.Lists;
 
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.Mth;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent.RenderTickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 
 public final class DynamicColor extends TextColor implements IColor
 {
@@ -44,7 +41,7 @@ public final class DynamicColor extends TextColor implements IColor
 
 		if (isAnimated())
 		{
-			MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, RenderTickEvent.class, this::onRenderTick);
+			RenderTickEvent.START.register(this::onRenderTick);
 		}
 	}
 
@@ -151,11 +148,7 @@ public final class DynamicColor extends TextColor implements IColor
 
 		if (isAnimated())
 		{
-			MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, RenderTickEvent.class, this::onRenderTick);
-		}
-		else
-		{
-			MinecraftForge.EVENT_BUS.unregister((Consumer<RenderTickEvent>)this::onRenderTick);
+			RenderTickEvent.START.register(this::onRenderTick);
 		}
 	}
 
@@ -215,7 +208,7 @@ public final class DynamicColor extends TextColor implements IColor
 		}
 	}
 
-	public void onRenderTick(RenderTickEvent event)
+	public void onRenderTick(float partialTick)
 	{
 		timer += 1.0f / 20.0f;
 		if (timer >= duration)

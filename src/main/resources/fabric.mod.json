@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "${modId}",
+	"version": "${version}",
+
+	"name": "${displayName}",
+	"description": "A library all about color! Provides lots of color-related functionality for dependent mods.",
+	"authors": [ "Grend" ],
+	"contact": {
+		"homepage": "https://anthonyhilyard.com/",
+		"sources": "https://github.com/AHilyard/Prism",
+		"discord": "https://discord.gg/S5NQjbXPnb"
+	},
+
+	"license": "CC BY-NC-ND 4.0",
+	"icon": "icon.png",
+
+	"environment": "client",
+
+	"entrypoints": { },
+	
+	"accessWidener": "prism.accesswidener",
+	"mixins": [
+		"prism.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": ">=0.14.8",
+		"fabric": "*",
+		"minecraft": ">=1.18.2",
+		"java": ">=17"
+	},
+	"custom": {
+		"modupdater": {
+			"strategy": "curseforge",
+			"projectID": 665526,
+			"strict": false
+		},
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/S5NQjbXPnb"
+			}
+		}
+	}
+}

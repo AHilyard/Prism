@@ -2,9 +2,9 @@
 	"required": false,
 	"package": "com.anthonyhilyard.prism.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"refmap": "prism.refmap.json",
 	"client": [
-		"TextColorMixin"
+		"TextColorMixin",
+		"MinecraftMixin"
 	],
 	"injectors": {
 		"defaultRequire": 0
