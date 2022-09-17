@@ -3,6 +3,7 @@ package com.anthonyhilyard.prism.item;
 import com.anthonyhilyard.prism.text.DynamicColor;
 import com.anthonyhilyard.prism.text.TextColors;
 import com.anthonyhilyard.prism.util.IColor;
+import com.anthonyhilyard.prism.util.WebColors;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class ItemColors
 		{
 			Minecraft mc = Minecraft.getInstance();
 			List<Component> lines = item.getTooltipLines(mc.player, TooltipFlag.Default.ADVANCED);
-			if (!lines.isEmpty())
+			if (!lines.isEmpty() && lines.get(0).getStyle().getColor() != null)
 			{
 				result = lines.get(0).getStyle().getColor();
 			}
@@ -87,6 +88,12 @@ public class ItemColors
 		if (result == null)
 		{
 			result = defaultColor;
+		}
+
+		// If the result is still null (default color is null), just return transparent.
+		if (result == null)
+		{
+			return (TextColor)WebColors.getColor("transparent");
 		}
 
 		return new DynamicColor((IColor)result);

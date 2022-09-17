@@ -61,7 +61,7 @@ public class ConfigHelper
 				new ColorFormatDocumentation("Modifiers", "Colors specified in any of the above formats can be modified by using modifiers.\n" +
 															"Modifiers are specified after any color in the format \"<+, -, or =><h, s, v, r, g, b, or a><amount>\".\n" +
 															"The letters represent h - hue, s - saturation, v - value, r - red, g - green, b - blue, a - alpha.\n" +
-															"Valid amounts are 1 to 255 for all types except hue, which accepts 1 to 359.\n",
+															"Valid amounts are 0 to 255 for all types except hue, which accepts 0 to 359.\n" +
 															"Using any modifiers will REQUIRE the key to be quoted.\n",
 											"\"red+h15\"", "\"#saddlebrown-v20+s5\"", "\"10_aqua_aqua+v15-h5\"", "\"#F4C-r15-v10=a40\""),
 				new ColorFormatDocumentation("Animated color", "An animated color that fades from one to another in sequence.\n" +
