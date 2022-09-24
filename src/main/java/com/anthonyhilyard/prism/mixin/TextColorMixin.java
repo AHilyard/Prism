@@ -34,7 +34,7 @@ public class TextColorMixin implements IColor
 	/**
 	 * Fix an issue in TextColor parsing that makes it so only alpha values up to 0x7F are supported.
 	 */
-	@Inject(method = "parseColor", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "parseColor", at = @At("HEAD"), cancellable = true, require = 1)
 	private static void parseColor(String colorString, CallbackInfoReturnable<TextColor> info)
 	{
 		if (!colorString.startsWith("#"))
