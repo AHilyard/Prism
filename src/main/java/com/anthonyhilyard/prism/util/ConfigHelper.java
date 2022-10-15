@@ -154,6 +154,7 @@ public class ConfigHelper
 	 * @param value The object representing a color.
 	 * @return The parse color, or null if a color couldn't be parsed.
 	 */
+	@SuppressWarnings("null")
 	public static IColor parseColor(Object value, boolean allowAlpha)
 	{
 		List<Object> unparsedColors = null;

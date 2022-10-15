@@ -10,6 +10,5 @@
 		"defaultRequire": 1
 	},
 	"minVersion": "0.8.5",
-	"target": "@env(DEFAULT)",
-	"verbose": true
+	"target": "@env(DEFAULT)"
 }
