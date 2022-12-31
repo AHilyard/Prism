@@ -19,7 +19,7 @@ apply plugin: "org.spongepowered.mixin"
 apply plugin: "eclipse"
 apply from: "evaluateprops.gradle"
 
-archivesBaseName = prop.name + "-" + prop.mcVersion
+archivesBaseName = prop.name + "-" + prop.mcVersion + '-forge'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 mixin {
