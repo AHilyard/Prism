@@ -1,11 +1,14 @@
 package com.anthonyhilyard.prism.item;
 
+import com.anthonyhilyard.prism.Prism;
 import com.anthonyhilyard.prism.text.DynamicColor;
 import com.anthonyhilyard.prism.text.TextColors;
 import com.anthonyhilyard.prism.util.IColor;
 import com.anthonyhilyard.prism.util.WebColors;
 
 import java.util.List;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +20,7 @@ import net.minecraft.network.chat.Style;
 
 public class ItemColors
 {
+	private static boolean logItemColorError = true;
 	private static class ColorCollector implements FormattedCharSink
 	{
 		private TextColor color = null;
@@ -77,10 +81,25 @@ public class ItemColors
 		if (result == null || result.equals(item.getDisplayName().getStyle().getColor()))
 		{
 			Minecraft mc = Minecraft.getInstance();
-			List<Component> lines = item.getTooltipLines(mc.player, TooltipFlag.Default.ADVANCED);
-			if (!lines.isEmpty() && lines.get(0).getStyle().getColor() != null)
+			try
 			{
-				result = lines.get(0).getStyle().getColor();
+				List<Component> lines = item.getTooltipLines(mc.player, TooltipFlag.Default.ADVANCED);
+				if (!lines.isEmpty() && lines.get(0).getStyle().getColor() != null)
+				{
+					result = lines.get(0).getStyle().getColor();
+				}
+			}
+			catch (Exception e)
+			{
+				// An exception here indicates that something went wrong when fetching the tooltip.
+				// This can happen when the tooltip is grabbed too early, or sometimes from bugs in other mods.
+				// In this case log the error, but only log here one time at most to prevent log spam.
+				if (logItemColorError)
+				{
+					logItemColorError = false;
+					Prism.LOGGER.error("Error getting tooltip for item: " + item.toString());
+					Prism.LOGGER.error(ExceptionUtils.getStackTrace(e));
+				}
 			}
 		}
 
