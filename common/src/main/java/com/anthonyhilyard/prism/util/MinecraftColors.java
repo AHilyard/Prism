@@ -16,11 +16,12 @@ public class MinecraftColors
 		Map<String, Integer> loadedColors = Maps.newHashMap();
 
 		// Collect all of Minecraft's built-in colors.
-		for (ChatFormatting color : ChatFormatting.values())
+		for (ChatFormatting formatting : ChatFormatting.values())
 		{
-			if (color.isColor())
+			TextColor color = TextColor.fromLegacyFormat(formatting);
+			if (color != null)
 			{
-				loadedColors.put(ConfigHelper.formatColorName(color.getName()), color.getColor());
+				loadedColors.put(ConfigHelper.formatColorName(color.serialize()), color.getValue());
 			}
 		}
 
