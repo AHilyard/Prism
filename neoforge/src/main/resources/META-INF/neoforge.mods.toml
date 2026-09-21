@@ -8,21 +8,21 @@ version="${version}"
 displayName="${displayName}"
 displayURL="https://anthonyhilyard.com/"
 updateJSONURL="https://mc-update-check.anthonyhilyard.com/638111"
-logoFile="icon.png"
+iconFile="icon.png"
 authors="Grend, Mat0u5"
 description='''A library all about color! Provides lots of color-related functionality for dependent mods.'''
 
 [[modDependency]]
 	modId="neoforge"
 	type="required"
-	versionRange="[26.2,)"
+	versionRange="[26.3,)"
 	ordering="NONE"
 	side="BOTH"
 
 [[modDependency]]
 	modId="minecraft"
 	type="required"
-	versionRange="[26.2,)"
+	versionRange="[26.3,)"
 	ordering="NONE"
 	side="BOTH"
 
